@@ -2,8 +2,11 @@
  * Tests matching of !-graphs against string graphs
  *)
 functor Bang_Graph_Matching_Tests(
-  Matcher : BG_MATCH_SEARCH where type G.EData.data = Test_Graph_Data.edata
-                              and type G.OVData.IData.data = Test_Graph_Data.vdata
+  Matcher : BG_MATCH_SEARCH
+    where type G.EData.data = Test_Graph_Data.edata
+      and type G.OVData.IData.data = Test_Graph_Data.vdata
+      and type MatchState.BBoxOperator.T = Test_BBoxOperator.T
+      and type MatchState.BBoxOperator.G.T = Test_BBoxOperator.G.T
 ) =
 struct
   structure Tools = Test_Bang_Match_Tools(Matcher);

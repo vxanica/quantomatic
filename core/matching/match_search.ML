@@ -45,40 +45,35 @@ sig
 
   structure G : BANG_GRAPH;
   structure MatchState : BANG_GRAPH_MATCH_STATE;
+  structure BBoxOperator : BBOX_OPERATOR;
   structure Sharing : MATCH_SEARCH_SHARING
     sharing Sharing.G = G.SharingOGraph
     sharing Sharing.MatchState = MatchState.Sharing
+    sharing G.SharingOGraph = BBoxOperator.G.SharingOGraph
+    sharing MatchState.BBoxOperator.Sharing = BBoxOperator.Sharing
   
   (* Searches for matches *)
   val match
-     : (V.NSet.T *          (* names to avoid *)
-        V.NSet.T)           (* names to track *)
-    -> G.T                  (* pattern graph *)
+     : BBoxOperator.T       (* pattern graph + operator *)
     -> G.T                  (* target graph *)
     -> MatchState.T Seq.seq (* (lazy) list of matches *)
   
   (* Searches for matches *)
   val match_subgraph
-     : (V.NSet.T *          (* names to avoid *)
-        V.NSet.T)           (* names to track *)
-    -> G.T                  (* pattern graph *)
+     : BBoxOperator.T       (* pattern graph + operator *)
     -> G.T                  (* target graph *)
     -> V.NSet.T             (* target subgraph verts *)
     -> MatchState.T Seq.seq (* (lazy) list of matches *)
   
   (* Searches for matches *)
   val match_normalised
-     : (V.NSet.T *          (* names to avoid *)
-        V.NSet.T)           (* names to track *)
-    -> G.T                  (* pattern graph (normalised) *)
+     : BBoxOperator.T       (* pattern graph + operator *)
     -> G.T                  (* target graph (normalised) *)
     -> MatchState.T Seq.seq (* (lazy) list of matches *)
   
   (* Searches for matches *)
   val match_subgraph_normalised
-     : (V.NSet.T *          (* names to avoid *)
-        V.NSet.T)           (* names to track *)
-    -> G.T                  (* pattern graph (normalised) *)
+     : BBoxOperator.T       (* pattern graph + operator *)
     -> G.T                  (* target graph (normalised) *)
     -> V.NSet.T             (* target subgraph verts *)
     -> MatchState.T Seq.seq (* (lazy) list of matches *)

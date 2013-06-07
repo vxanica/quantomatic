@@ -78,8 +78,10 @@ struct
 
   structure Ruleset = BangGraphRuleset(Rule);
 
+  structure BBoxOperator = ReplayableBBoxOperator(Graph);
   structure Match = BangGraphMatchState(
                       structure G = Graph
+                      structure BBoxOperator = BBoxOperator
                       type data = unit
                       val empty_data = ()
                     );
@@ -95,6 +97,7 @@ struct
     structure Rewriter = BangGraphRewriter(
       structure Rule = Ruleset.BangGraphRule;
       structure Matcher = MatchSearch;
+      structure BBoxOperator = BBoxOperator;
     );
   );
 
